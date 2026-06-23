@@ -87,7 +87,7 @@ jobs:
 
       - name: Revisar la calidad con Sonarqube 2
         run: |
-          mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=admin -Dsonar.qualitygate.wait=true
+          mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=admin -Dsonar.password=adminadminadmin -Dsonar.qualitygate.wait=true
 
   deploy:
     needs: qa
