@@ -80,7 +80,7 @@ jobs:
 
       - name: Wait for SonarQube to be ready
         run: |
-          until curl -sf http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do echo "Waiting for SonarQube..."; sleep 10 done
+          until curl -sf http://localhost:9000/api/system/status | grep -q '"status":"UP"'; do echo "Waiting for SonarQube..."; sleep 10; done
 
       - name: Construir con Maven
         run: mvn clean package -DskipTests
