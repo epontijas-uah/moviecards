@@ -94,10 +94,29 @@ jobs:
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.token=$SONAR_TOKEN \
             -Dsonar.qualitygate.wait=true
+  stage:
+      runs-on: ubuntu-latest
+      needs: qa
+      if: github.ref=='refs/heads/main'
+
+      steps:
+        - name: Download artifact from build job
+          uses: actions/download-artifact@v4
+          with:
+            name: moviecards-java
+
+        - name: Deploy to Azure Web App (pre-producción)
+          id: deploy-to-webapp-stage
+          uses: azure/webapps-deploy@v3
+          with:
+            app-name: 'moviecards-pre'
+            slot-name: 'Production'
+            package: '*.jar'
+            publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_PRE }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: qa
+    needs: stage
     if: github.ref=='refs/heads/main'
       
     steps:
