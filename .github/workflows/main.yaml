@@ -109,7 +109,7 @@ jobs:
           id: deploy-to-webapp-stage
           uses: azure/webapps-deploy@v3
           with:
-            app-name: 'moviecards-pre'
+            app-name: 'moviecards-pontijas-pre'
             slot-name: 'Production'
             package: '*.jar'
             publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_PRE }}
