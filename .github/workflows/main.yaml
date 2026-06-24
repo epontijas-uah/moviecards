@@ -96,8 +96,21 @@ jobs:
             -Dsonar.qualitygate.wait=true
 
   deploy:
-    needs: qa
     runs-on: ubuntu-latest
+    needs: qa
+    if: github.ref=='refs/heads/main'
+      
     steps:
-      - name: despliegue
-        run: echo "despliegue"
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: moviecards-java
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'moviecards-pontijas'
+          slot-name: 'Production'
+          package: '*.jar'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_54DB4F8772944FAA973785EA2A813F42 }}
