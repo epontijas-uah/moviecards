@@ -72,6 +72,10 @@ jobs:
 
       - name: Construir con Maven
         run: mvn clean package -DskipTests
+      
+      - name: Test SonarQube auth
+        run: |
+          curl -u ${{ secrets.SONAR_TOKEN }}: http://localhost:9000/api/authentication/validate
 
       - name: Revisar la calidad con Sonarqube
         run: |
