@@ -75,8 +75,10 @@ jobs:
 
       - name: Revisar la calidad con Sonarqube
         run: |
-          mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -
-          Dsonar.qualitygate.wait=true -Dsonar.login=admin -Dsonar.password=admin
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+          -Dsonar.host.url=http://localhost:9000 \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.qualitygate.wait=true
 
   stage:
       runs-on: ubuntu-latest
